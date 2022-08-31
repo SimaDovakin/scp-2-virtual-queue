@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block page_content %}
+	<div class="content">
+		<aside class="sidebar">
+			<nav class="side-menu">
+				<div class="menu-list menu-personal">
+					<div class="menu-item active">
+						<a href="javascript:void(0);">My Participations</a>
+					</div>
+					<div class="menu-item">
+						<a href="javascript:void(0);">My Queues</a>
+					</div>
+					<div class="menu-item">
+						<a href="javascript:void(0);">Settings</a>
+					</div>
+				</div>
+				<div class="menu-list menu-general">
+					<div class="menu-item">
+						<a href="javascript:void(0);">All Queues</a>
+					</div>
+				</div>
+			</nav>
+		</aside>
+		<main class="page">
+			<h1 class="title">My Participations</h1>
+			<div id="participations" class="item-list">
+				<div class="item-block">
+					{% for participation in user.participations.all %}
+						<div class="item-info">
+							<h3 class="item-name">{{ participation.queue.name }}</h3>
+							<div class="location">
+								Ukraine, Zhytomyr region, Zhytomyr, Chudnivska street, 105, 10001
+								{% with participation.queue.location as location %}
+									{{ location.country.name }}, 
+									{{ location.region.name }}, 
+									{{ location.city.name }},
+									{{ location.address }}
+								{% endwith %}
+							</div>
+							<div class="date-created">{{ participation.created_at }}</div>
+						</div>
+						<div class="queue-order">
+							<div class="number">{{ participation.queue_order }}</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</main>
+	</div>
+{% endblock %}
