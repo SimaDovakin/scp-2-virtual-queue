@@ -27,12 +27,11 @@
 		<main class="page">
 			<h1 class="title">My Participations</h1>
 			<div id="participations" class="item-list">
-				<div class="item-block">
-					{% for participation in user.participations.all %}
+				{% for participation in user.participations.all %}
+					<div class="item-block">
 						<div class="item-info">
 							<h3 class="item-name">{{ participation.queue.name }}</h3>
 							<div class="location">
-								Ukraine, Zhytomyr region, Zhytomyr, Chudnivska street, 105, 10001
 								{% with participation.queue.location as location %}
 									{{ location.country.name }}, 
 									{{ location.region.name }}, 
@@ -45,8 +44,8 @@
 						<div class="queue-order">
 							<div class="number">{{ participation.queue_order }}</div>
 						</div>
-					{% endfor %}
-				</div>
+					</div>
+				{% endfor %}
 			</div>
 		</main>
 	</div>
