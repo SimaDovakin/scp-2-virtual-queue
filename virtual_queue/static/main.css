@@ -72,8 +72,17 @@ main.page {
   flex: 1 1 auto
 }
 
+section.section-content {
+  display: none;
+}
+
+section.section-content.active {
+  display: block;
+}
+
 h1.title {
-  margin: 15px 0
+  margin: 15px 0;
+  font-size: 30px
 }
 
 .item-list {

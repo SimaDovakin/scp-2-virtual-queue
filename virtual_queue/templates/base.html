@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block page_title %}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<title>{% block page_title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{% static 'main.css' %}">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,5 +14,7 @@
 	   {% block page_content %}
 	   {% endblock %}
 	</div>
+
+	<script src="{% static 'main.js' %}"></script>
 </body>
 </html>
