@@ -75,6 +75,24 @@
 			</section>
 			<section id="allQueues" class="section-content">
 				<h1 class="title">All Queues</h1>
+					<div class="item-list">
+						{% for queue in all_queues %}
+							<div class="item-block">
+								<div class="item-info">
+									<h3 class="item-name">{{ queue.name }}</h3>
+									<div class="location">
+										{% with queue.location as location %}
+											{{ location.country.name }}, 
+											{{ location.region.name }}, 
+											{{ location.city.name }},
+											{{ location.address }}
+										{% endwith %}
+									</div>
+									<div class="date-created">{{ queue.created_at }}</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
 			</section>
 		</main>
 	</div>
