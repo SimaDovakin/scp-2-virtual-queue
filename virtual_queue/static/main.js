@@ -28,6 +28,9 @@ function getSidebarMenuItemsObject() {
 
 const pageSections = getPageSectionsObject();
 const menuItems = getSidebarMenuItemsObject();
+const queueFormWrapper = document.getElementById('queueFormWrapper');
+const addQueueBtn = document.getElementById('addQueueBtn');
+const hideQueueFormBtn = document.getElementById('hideQueueFormBtn');
 
 function clickSidebarMenuItem(e) {
 	const menuItem = e.target.closest('.menu-item');
@@ -53,4 +56,16 @@ function clickSidebarMenuItem(e) {
 	}
 }
 
+function showQueueForm() {
+	addQueueBtn.classList.remove('show');
+	queueFormWrapper.classList.add('show');
+}
+
+function hideQueueForm(e) {
+	queueFormWrapper.classList.remove('show');
+	addQueueBtn.classList.add('show');
+}
+
 document.getElementById('leftSideBar').addEventListener('click', clickSidebarMenuItem);
+addQueueBtn.addEventListener('click', showQueueForm);
+hideQueueFormBtn.addEventListener('click', hideQueueForm);
