@@ -72,32 +72,23 @@
 					<button id="addQueueBtn" class='btn-add show'></button>
 					<div class="form-wrapper" id="queueFormWrapper">
 						<button class="btn-close" id="hideQueueFormBtn"></button>
-						<form action="" method="post" class="form-add">
+						<form action="{% url 'queues:create_queue' %}" method="post" class="form-add" id="addQueueForm">
 							<h3 class="form-title">Add new queue</h3>
 							{% csrf_token %}
 							<div class="form-field">
-								<input type="text" placeholder="Queue name" name="name">
+								<input type="text" placeholder="{{ queue_form.name.label }}" name="{{ queue_form.name.name }}">
 							</div>
 							<div class="form-field">
-								<select name="country">
-									<option value="">Select country</option>
-									<option value="1">Ukraine</option>
-								</select>
+								{{ queue_form.country }}
 							</div>
 							<div class="form-field">
-								<select name="city">
-									<option value="">Select city</option>
-									<option value="1">Zhytomyr</option>
-								</select>
+								{{ queue_form.region }}
 							</div>
 							<div class="form-field">
-								<select name="region">
-									<option value="">Select region</option>
-									<option value="1">Zhytomyr region</option>
-								</select>
+								{{ queue_form.city }}
 							</div>
 							<div class="form-field">
-								<input type="text" placeholder="Address" name="address">
+								<input type="text" placeholder="{{ queue_form.address.label }}" name="{{ queue_form.address.name }}">
 							</div>
 							<button type="submit">Add queue</button>
 						</form>

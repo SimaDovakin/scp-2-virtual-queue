@@ -1,5 +1,20 @@
 "use strict";
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 function getPageSectionsObject() {
 	const sectionsNodes = document.querySelectorAll('main.page section[id]');
 	let sectionsObject = {};
@@ -31,6 +46,7 @@ const menuItems = getSidebarMenuItemsObject();
 const queueFormWrapper = document.getElementById('queueFormWrapper');
 const addQueueBtn = document.getElementById('addQueueBtn');
 const hideQueueFormBtn = document.getElementById('hideQueueFormBtn');
+const addQueueForm = document.getElementById('addQueueForm');
 
 function clickSidebarMenuItem(e) {
 	const menuItem = e.target.closest('.menu-item');
@@ -66,6 +82,33 @@ function hideQueueForm(e) {
 	addQueueBtn.classList.add('show');
 }
 
+function submitAddQueueForm(e) {
+	e.preventDefault();
+
+	const formData = new FormData(addQueueForm);
+	const endpoint = addQueueForm.getAttribute('action');
+	const postData = {
+		name: formData.get('name'),
+		country: +formData.get('country'),
+		region: +formData.get('region'),
+		city: +formData.get('city'),
+		address: formData.get('address')
+	};
+
+	fetch(endpoint, {
+		method: 'POST',
+		credentials: 'same-origin',
+		headers: {
+			"X-Requested-With": "XMLHttpRequest",
+			"X-CSRFToken": getCookie("csrftoken")
+		},
+		body: JSON.stringify(postData)
+	})
+	.then(response => response.json())
+	.then(data => console.log(data));
+}
+
 document.getElementById('leftSideBar').addEventListener('click', clickSidebarMenuItem);
 addQueueBtn.addEventListener('click', showQueueForm);
 hideQueueFormBtn.addEventListener('click', hideQueueForm);
+addQueueForm.addEventListener('submit', submitAddQueueForm);
