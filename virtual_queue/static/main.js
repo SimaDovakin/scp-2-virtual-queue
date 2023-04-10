@@ -47,6 +47,7 @@ const queueFormWrapper = document.getElementById('queueFormWrapper');
 const addQueueBtn = document.getElementById('addQueueBtn');
 const hideQueueFormBtn = document.getElementById('hideQueueFormBtn');
 const addQueueForm = document.getElementById('addQueueForm');
+const myQueuesSection = document.getElementById('queues');
 
 function clickSidebarMenuItem(e) {
 	const menuItem = e.target.closest('.menu-item');
@@ -82,7 +83,11 @@ function hideQueueForm(e) {
 	addQueueBtn.classList.add('show');
 }
 
-function submitAddQueueForm(e) {
+function addQueueItemHTML(queueHTML) {
+	myQueuesSection.querySelector('.item-list').innerHTML += queueHTML;
+}
+
+async function submitAddQueueForm(e) {
 	e.preventDefault();
 
 	const formData = new FormData(addQueueForm);
@@ -95,7 +100,7 @@ function submitAddQueueForm(e) {
 		address: formData.get('address')
 	};
 
-	fetch(endpoint, {
+	const response = await fetch(endpoint, {
 		method: 'POST',
 		credentials: 'same-origin',
 		headers: {
@@ -103,9 +108,9 @@ function submitAddQueueForm(e) {
 			"X-CSRFToken": getCookie("csrftoken")
 		},
 		body: JSON.stringify(postData)
-	})
-	.then(response => response.json())
-	.then(data => console.log(data));
+	});
+	const responseData = await response.json();
+	addQueueItemHTML(responseData['queue_html']);
 }
 
 document.getElementById('leftSideBar').addEventListener('click', clickSidebarMenuItem);

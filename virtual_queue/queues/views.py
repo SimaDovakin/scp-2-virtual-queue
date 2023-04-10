@@ -1,7 +1,8 @@
 import json
 
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseNotAllowed
+from django.shortcuts import render
+from django.template.loader import get_template
 
 from queues.forms import QueueForm
 from queues.models import Queue, Location
@@ -35,7 +36,12 @@ def create_queue(request):
                 user=request.user
             )
 
-            return JsonResponse({'message': 'Success'})
+            queue_template = get_template('queues/queue_item.html')
+
+            return JsonResponse({
+                'status': 'success',
+                'queue_html': queue_template.render({'queue': queue})
+            })
 
         else:
             return JsonResponse({

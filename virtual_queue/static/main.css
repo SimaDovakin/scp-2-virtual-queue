@@ -211,6 +211,16 @@ button.btn-close::after {
   background-color: white
 }
 
+.item-block .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+button.btn-close.btn-item {
+  align-self: center
+}
+
 .form-wrapper {
   display: none
 }
