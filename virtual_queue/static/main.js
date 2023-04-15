@@ -55,22 +55,21 @@ function clickSidebarMenuItem(e) {
 	if (menuItem) {
 		const sectionId = menuItem.dataset.sectionId;
 
-		Object.keys(pageSections).forEach(item => {
-			if (item === sectionId && !pageSections[item].classList.contains('active')) {
-				pageSections[item].classList.add('active');
-			} else if (item !== sectionId) {
-				pageSections[item].classList.remove('active');
-			}
-		});
+		addSectionHash(sectionId);
 
-		Object.keys(menuItems).forEach(item => {
-			if (item === sectionId && !menuItems[item].classList.contains('active')) {
-				menuItems[item].classList.add('active');
-			} else if (item !== sectionId) {
-				menuItems[item].classList.remove('active');
-			}
-		});
+		activateItem(sectionId, pageSections);
+		activateItem(sectionId, menuItems);
 	}
+}
+
+function activateItem(id, items) {
+	Object.keys(items).forEach(item => {
+		if (item === id && !items[item].classList.contains('active')) {
+			items[item].classList.add('active');
+		} else if (item !== id) {
+			items[item].classList.remove('active');
+		}
+	});
 }
 
 function showQueueForm() {
@@ -112,6 +111,23 @@ async function submitAddQueueForm(e) {
 	const responseData = await response.json();
 	addQueueItemHTML(responseData['queue_html']);
 }
+
+function addSectionHash(sectionId) {
+	document.location.hash = sectionId;
+}
+
+function resolveSectionHash() {
+	const sectionId = document.location.hash.replace('#', '');
+
+	if (sectionId !== '') {
+		if (menuItems.hasOwnProperty(sectionId) && pageSections.hasOwnProperty(sectionId)) {
+			activateItem(sectionId, pageSections);
+			activateItem(sectionId, menuItems);
+		}
+	}
+}
+
+resolveSectionHash();
 
 document.getElementById('leftSideBar').addEventListener('click', clickSidebarMenuItem);
 addQueueBtn.addEventListener('click', showQueueForm);
