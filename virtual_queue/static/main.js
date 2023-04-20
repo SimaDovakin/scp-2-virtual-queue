@@ -62,6 +62,16 @@ function clickSidebarMenuItem(e) {
 	}
 }
 
+async function clickOnQueueAction(e) {
+	const actionButton = e.target,
+				queueItem = actionButton.parentElement.parentElement;
+
+	if (actionButton.classList.contains('btn-item-delete')) {
+		await deleteQueueItem(queueItem.dataset.id);
+		queueItem.remove();
+	}
+}
+
 function activateItem(id, items) {
 	Object.keys(items).forEach(item => {
 		if (item === id && !items[item].classList.contains('active')) {
@@ -84,6 +94,19 @@ function hideQueueForm(e) {
 
 function addQueueItemHTML(queueHTML) {
 	myQueuesSection.querySelector('.item-list').innerHTML += queueHTML;
+}
+
+async function deleteQueueItem(queueId) {
+	const url = `/delete_queue/${queueId}`;
+
+	const response = await fetch(url, {
+		method: 'DELETE',
+		credentials: 'same-origin',
+		headers: {
+			"X-Requested-With": "XMLHttpRequest",
+			"X-CSRFToken": getCookie("csrftoken")
+		}
+	});
 }
 
 async function submitAddQueueForm(e) {
@@ -133,3 +156,4 @@ document.getElementById('leftSideBar').addEventListener('click', clickSidebarMen
 addQueueBtn.addEventListener('click', showQueueForm);
 hideQueueFormBtn.addEventListener('click', hideQueueForm);
 addQueueForm.addEventListener('submit', submitAddQueueForm);
+pageSections.queues.querySelector('.item-list').addEventListener('click', clickOnQueueAction);

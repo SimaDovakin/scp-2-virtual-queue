@@ -1,4 +1,4 @@
-<div class="item-block">
+<div class="item-block" data-id="{{ queue.id }}">
 	<div class="item-info">
 		<h3 class="item-name">{{ queue.name }}</h3>
 		<div class="location">
@@ -10,5 +10,8 @@
 			{% endwith %}
 		</div>
 		<div class="date-created">{{ queue.created_at }}</div>
+	</div>
+	<div class="actions">
+		<button class="btn-close btn-item btn-item-delete"></button>
 	</div>
 </div>

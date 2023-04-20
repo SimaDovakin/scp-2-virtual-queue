@@ -1,7 +1,7 @@
 import json
 
 from django.http import JsonResponse, HttpResponseNotAllowed
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
 from queues.forms import QueueForm
@@ -48,5 +48,19 @@ def create_queue(request):
                 'status': 'fail',
                 'errors': dict(queue_form.errors.items())
             })
+
+    return HttpResponseNotAllowed()
+
+
+def delete_queue(request, queue_id):
+    is_ajax = request.headers.get('X-Requested-With') == "XMLHttpRequest"
+
+    if is_ajax and request.method == 'DELETE':
+        queue = get_object_or_404(Queue, pk=queue_id)
+        queue.delete()
+
+        return JsonResponse({
+            'status': 'success'
+        }, status=204)
 
     return HttpResponseNotAllowed()

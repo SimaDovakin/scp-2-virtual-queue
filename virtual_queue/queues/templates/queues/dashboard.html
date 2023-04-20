@@ -53,7 +53,7 @@
 				<h1 class="title">My Queues</h1>
 					<div class="item-list">
 						{% for queue in user.queues.all %}
-							<div class="item-block">
+						<div class="item-block" data-id="{{ queue.id }}">
 								<div class="item-info">
 									<h3 class="item-name">{{ queue.name }}</h3>
 									<div class="location">
@@ -67,7 +67,7 @@
 									<div class="date-created">{{ queue.created_at }}</div>
 								</div>
 								<div class="actions">
-									<button class="btn-close btn-item"></button>
+									<button class="btn-close btn-item btn-item-delete"></button>
 								</div>
 							</div>
 						{% endfor %}
