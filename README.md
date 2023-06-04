@@ -1,6 +1,6 @@
 # Some Common Project #2 (SCP #2) - Virtual Queue
 
-## Idea
+## The Idea
 
 Once, I went to the government agency to update my documents, and there were so many people in the queue. If you wanted to enter this queue, you would have to ask some woman who writes down people's names in it. She had just a piece of paper for it.
 
