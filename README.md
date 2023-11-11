@@ -8,6 +8,10 @@ I think it's more convenient to create a web application for it, so I decided to
 
 My intention is to create this application with Django. I am not going to use front-end frameworks, but, maybe, I will use Celery for some scheduled tasks like notifications about your queue order.
 
+### 02-07-2023
+
+I decided to use Django REST framework for the project. And also, I decided to use some front-end framework or library. It would be React, because I need to learn it.
+
 ## Something about architecture
 
 I plan to create two main applications:
