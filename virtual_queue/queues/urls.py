@@ -1,12 +1,16 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
 from . import views
 
 
+router = routers.DefaultRouter()
+router.register(r'queues', views.QueueViewSet, basename='queues')
+router.register(r'countries', views.CountryViewSet, basename='countries')
+router.register(r'regions', views.RegionViewSet, basename='regions')
+
 app_name = 'queues'
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
-    path('create_queue', views.create_queue, name='create_queue'),
-    path('delete_queue/<int:queue_id>', views.delete_queue, name='delete_queue')
+    path('', include(router.urls)),
 ]
